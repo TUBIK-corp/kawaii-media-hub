@@ -1,18 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { MediaGrid } from "@/components/MediaGrid";
 import { Button } from "@/components/ui/button";
-import { Sparkles, TrendingUp, Clock, Search, X } from "lucide-react";
+import { Sparkles, TrendingUp, Clock } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Input } from "@/components/ui/input";
 import Particles from "react-particles";
 import { loadFull } from "tsparticles";
 import type { Engine } from "tsparticles-engine";
-
-const GENRES = [
-  "Action", "Romance", "Comedy", "Fantasy", 
-  "Slice of Life", "Drama", "Art", "Memes",
-  "Adventure", "Mystery", "Horror", "Sci-Fi"
-];
+import { SearchPanel } from "@/components/SearchPanel";
 
 const SAMPLE_MEDIA = [
   {
@@ -66,36 +60,15 @@ const SAMPLE_MEDIA = [
 ];
 
 const Recommendations = () => {
+  const [activeTab, setActiveTab] = useState<'recommended' | 'trending' | 'new'>('recommended');
   const [includedGenres, setIncludedGenres] = useState<string[]>([]);
   const [excludedGenres, setExcludedGenres] = useState<string[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState<'recommended' | 'trending' | 'new'>('recommended');
-  const [filteredGenres, setFilteredGenres] = useState(GENRES);
   const isMobile = useIsMobile();
 
-  const handleGenreClick = (genre: string) => {
-    if (includedGenres.includes(genre)) {
-      setIncludedGenres(includedGenres.filter(g => g !== genre));
-      setExcludedGenres([...excludedGenres, genre]);
-    } else if (excludedGenres.includes(genre)) {
-      setExcludedGenres(excludedGenres.filter(g => g !== genre));
-    } else {
-      setIncludedGenres([...includedGenres, genre]);
-    }
+  const handleSearch = (included: string[], excluded: string[]) => {
+    setIncludedGenres(included);
+    setExcludedGenres(excluded);
   };
-
-  const getGenreChipClass = (genre: string) => {
-    if (includedGenres.includes(genre)) return "genre-chip selected";
-    if (excludedGenres.includes(genre)) return "genre-chip excluded";
-    return "genre-chip default";
-  };
-
-  useEffect(() => {
-    const filtered = GENRES.filter(genre =>
-      genre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredGenres(filtered);
-  }, [searchTerm]);
 
   const filteredMedia = SAMPLE_MEDIA.filter(item => {
     const hasIncludedGenres = includedGenres.length === 0 || 
@@ -164,6 +137,8 @@ const Recommendations = () => {
         }}
       />
       
+      <SearchPanel onSearch={handleSearch} />
+      
       <div className="relative z-10 animate-fade-in space-y-4 md:space-y-6 w-full px-4 md:px-8">
         <div className="glass rounded-lg p-3 md:p-6 space-y-4 md:space-y-6 max-w-[1920px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -198,34 +173,6 @@ const Recommendations = () => {
                 <Clock className="w-4 h-4" />
                 {!isMobile && "New"}
               </Button>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <Input
-                type="text"
-                placeholder="Search genres..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-secondary/50"
-              />
-            </div>
-            
-            <div className="flex gap-2 flex-wrap">
-              {filteredGenres.map((genre) => (
-                <span
-                  key={genre}
-                  onClick={() => handleGenreClick(genre)}
-                  className={getGenreChipClass(genre)}
-                >
-                  {genre}
-                  {(includedGenres.includes(genre) || excludedGenres.includes(genre)) && (
-                    <X className="inline-block ml-1 w-3 h-3" />
-                  )}
-                </span>
-              ))}
             </div>
           </div>
         </div>

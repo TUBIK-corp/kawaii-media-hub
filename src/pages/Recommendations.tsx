@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MediaGrid } from "@/components/MediaGrid";
 import { Button } from "@/components/ui/button";
-import { Sparkles, TrendingUp, Clock } from "lucide-react";
+import { Sparkles, TrendingUp, Clock, Search, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Input } from "@/components/ui/input";
+import Particles from "react-particles";
+import { loadFull } from "tsparticles";
+import type { Engine } from "tsparticles-engine";
 
-const GENRES = ["Action", "Romance", "Comedy", "Fantasy", "Slice of Life", "Drama", "Art", "Memes"];
+const GENRES = [
+  "Action", "Romance", "Comedy", "Fantasy", 
+  "Slice of Life", "Drama", "Art", "Memes",
+  "Adventure", "Mystery", "Horror", "Sci-Fi"
+];
 
 const SAMPLE_MEDIA = [
   {
@@ -41,11 +49,11 @@ const SAMPLE_MEDIA = [
   },
   {
     id: "5",
-    imageUrl: "https://img.freepik.com/premium-photo/cute-anime-girl-kawai_941097-16202.jpg",
-    title: "Cherry Blossom Dreams",
+    imageUrl: "https://cdn5.vectorstock.com/i/1000x1000/65/54/cute-anime-girl-in-black-hoodie-and-green-eyes-vector-39706554.jpg",
+    title: "Mystic Eyes",
     likes: 456,
     comments: 78,
-    genres: ["Romance", "Art"]
+    genres: ["Mystery", "Drama"]
   },
   {
     id: "6",
@@ -58,68 +66,174 @@ const SAMPLE_MEDIA = [
 ];
 
 const Recommendations = () => {
-  const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
+  const [includedGenres, setIncludedGenres] = useState<string[]>([]);
+  const [excludedGenres, setExcludedGenres] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState<'recommended' | 'trending' | 'new'>('recommended');
+  const [filteredGenres, setFilteredGenres] = useState(GENRES);
   const isMobile = useIsMobile();
 
-  const filteredMedia = selectedGenre 
-    ? SAMPLE_MEDIA.filter(item => item.genres.includes(selectedGenre))
-    : SAMPLE_MEDIA;
+  const handleGenreClick = (genre: string) => {
+    if (includedGenres.includes(genre)) {
+      setIncludedGenres(includedGenres.filter(g => g !== genre));
+      setExcludedGenres([...excludedGenres, genre]);
+    } else if (excludedGenres.includes(genre)) {
+      setExcludedGenres(excludedGenres.filter(g => g !== genre));
+    } else {
+      setIncludedGenres([...includedGenres, genre]);
+    }
+  };
+
+  const getGenreChipClass = (genre: string) => {
+    if (includedGenres.includes(genre)) return "genre-chip selected";
+    if (excludedGenres.includes(genre)) return "genre-chip excluded";
+    return "genre-chip default";
+  };
+
+  useEffect(() => {
+    const filtered = GENRES.filter(genre =>
+      genre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredGenres(filtered);
+  }, [searchTerm]);
+
+  const filteredMedia = SAMPLE_MEDIA.filter(item => {
+    const hasIncludedGenres = includedGenres.length === 0 || 
+      includedGenres.some(genre => item.genres.includes(genre));
+    const hasNoExcludedGenres = excludedGenres.length === 0 || 
+      !excludedGenres.some(genre => item.genres.includes(genre));
+    return hasIncludedGenres && hasNoExcludedGenres;
+  });
+
+  const particlesInit = async (engine: Engine) => {
+    await loadFull(engine);
+  };
 
   return (
-    <div className="min-h-screen animate-fade-in space-y-4 md:space-y-6 max-w-7xl mx-auto px-2 md:px-4">
-      <div className="glass rounded-lg p-3 md:p-6 space-y-4 md:space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
-            Discover Amazing Content
-          </h1>
-          <div className="flex flex-wrap md:flex-nowrap gap-2">
-            <Button
-              size={isMobile ? "sm" : "default"}
-              variant={activeTab === 'recommended' ? 'default' : 'secondary'}
-              onClick={() => setActiveTab('recommended')}
-              className="flex-1 md:flex-none gap-2"
-            >
-              <Sparkles className="w-4 h-4" />
-              {!isMobile && "Recommended"}
-            </Button>
-            <Button
-              size={isMobile ? "sm" : "default"}
-              variant={activeTab === 'trending' ? 'default' : 'secondary'}
-              onClick={() => setActiveTab('trending')}
-              className="flex-1 md:flex-none gap-2"
-            >
-              <TrendingUp className="w-4 h-4" />
-              {!isMobile && "Trending"}
-            </Button>
-            <Button
-              size={isMobile ? "sm" : "default"}
-              variant={activeTab === 'new' ? 'default' : 'secondary'}
-              onClick={() => setActiveTab('new')}
-              className="flex-1 md:flex-none gap-2"
-            >
-              <Clock className="w-4 h-4" />
-              {!isMobile && "New"}
-            </Button>
+    <div className="min-h-screen w-full m-0 p-0 relative">
+      <Particles
+        id="tsparticles"
+        init={particlesInit}
+        options={{
+          background: {
+            color: {
+              value: "transparent",
+            },
+          },
+          particles: {
+            number: {
+              value: 50,
+              density: {
+                enable: true,
+                value_area: 800,
+              },
+            },
+            color: {
+              value: "#7E69AB",
+            },
+            shape: {
+              type: "circle",
+            },
+            opacity: {
+              value: 0.5,
+              random: true,
+            },
+            size: {
+              value: 3,
+              random: true,
+            },
+            move: {
+              enable: true,
+              speed: 1,
+              direction: "none",
+              random: true,
+              straight: false,
+              out_mode: "out",
+              bounce: false,
+            },
+          },
+          interactivity: {
+            detect_on: "canvas",
+            events: {
+              onhover: {
+                enable: true,
+                mode: "repulse",
+              },
+            },
+          },
+        }}
+      />
+      
+      <div className="relative z-10 animate-fade-in space-y-4 md:space-y-6 w-full px-4 md:px-8">
+        <div className="glass rounded-lg p-3 md:p-6 space-y-4 md:space-y-6 max-w-[1920px] mx-auto">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <h1 className="text-xl md:text-3xl font-bold gradient-text">
+              Discover Amazing Content
+            </h1>
+            <div className="flex flex-wrap md:flex-nowrap gap-2">
+              <Button
+                size={isMobile ? "sm" : "default"}
+                variant={activeTab === 'recommended' ? 'default' : 'secondary'}
+                onClick={() => setActiveTab('recommended')}
+                className="flex-1 md:flex-none gap-2"
+              >
+                <Sparkles className="w-4 h-4" />
+                {!isMobile && "Recommended"}
+              </Button>
+              <Button
+                size={isMobile ? "sm" : "default"}
+                variant={activeTab === 'trending' ? 'default' : 'secondary'}
+                onClick={() => setActiveTab('trending')}
+                className="flex-1 md:flex-none gap-2"
+              >
+                <TrendingUp className="w-4 h-4" />
+                {!isMobile && "Trending"}
+              </Button>
+              <Button
+                size={isMobile ? "sm" : "default"}
+                variant={activeTab === 'new' ? 'default' : 'secondary'}
+                onClick={() => setActiveTab('new')}
+                className="flex-1 md:flex-none gap-2"
+              >
+                <Clock className="w-4 h-4" />
+                {!isMobile && "New"}
+              </Button>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Input
+                type="text"
+                placeholder="Search genres..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 bg-secondary/50"
+              />
+            </div>
+            
+            <div className="flex gap-2 flex-wrap">
+              {filteredGenres.map((genre) => (
+                <span
+                  key={genre}
+                  onClick={() => handleGenreClick(genre)}
+                  className={getGenreChipClass(genre)}
+                >
+                  {genre}
+                  {(includedGenres.includes(genre) || excludedGenres.includes(genre)) && (
+                    <X className="inline-block ml-1 w-3 h-3" />
+                  )}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-        
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-primary scrollbar-track-secondary">
-          {GENRES.map((genre) => (
-            <Button
-              key={genre}
-              size={isMobile ? "sm" : "default"}
-              variant={selectedGenre === genre ? "default" : "outline"}
-              onClick={() => setSelectedGenre(selectedGenre === genre ? null : genre)}
-              className="whitespace-nowrap transition-all hover:scale-105"
-            >
-              {genre}
-            </Button>
-          ))}
+
+        <div className="max-w-[1920px] mx-auto">
+          <MediaGrid items={filteredMedia} />
         </div>
       </div>
-
-      <MediaGrid items={filteredMedia} />
     </div>
   );
 };

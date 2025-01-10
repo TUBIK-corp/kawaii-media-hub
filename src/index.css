@@ -17,7 +17,11 @@
   }
 
   body {
-    @apply bg-[#1A1F2C] text-foreground;
+    @apply bg-[#1A1F2C] text-foreground min-h-screen w-full m-0 p-0;
+  }
+
+  #root {
+    @apply w-full max-w-none m-0 p-0;
   }
 
   /* Custom Scrollbar */
@@ -51,6 +55,22 @@
 
   .gradient-text {
     @apply bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent;
+  }
+
+  .genre-chip {
+    @apply px-3 py-1.5 rounded-full transition-all duration-300 cursor-pointer text-sm font-medium;
+  }
+
+  .genre-chip.selected {
+    @apply bg-primary text-white;
+  }
+
+  .genre-chip.excluded {
+    @apply bg-destructive text-white;
+  }
+
+  .genre-chip.default {
+    @apply bg-secondary hover:bg-secondary/80 text-gray-300;
   }
 }
 

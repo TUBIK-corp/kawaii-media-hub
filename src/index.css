@@ -23,14 +23,15 @@
   /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-secondary;
+    @apply bg-secondary rounded-full;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary rounded-full;
+    @apply bg-primary rounded-full hover:bg-primary-hover transition-colors;
   }
 
   /* Glass Effect */
@@ -46,5 +47,23 @@
   
   .btn-primary {
     @apply px-4 py-2 bg-primary hover:bg-primary-hover text-primary-foreground rounded-lg transition-colors;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thumb-primary::-webkit-scrollbar-thumb {
+    @apply bg-primary;
+  }
+  
+  .scrollbar-track-secondary::-webkit-scrollbar-track {
+    @apply bg-secondary;
   }
 }

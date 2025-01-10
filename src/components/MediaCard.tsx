@@ -1,6 +1,7 @@
-import { Heart, MessageCircle } from "lucide-react";
+import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 interface MediaCardProps {
   id: string;
@@ -11,31 +12,45 @@ interface MediaCardProps {
   genres: string[];
 }
 
-export const MediaCard = ({ id, imageUrl, title, likes, comments, genres }: MediaCardProps) => {
+export const MediaCard = ({ id, imageUrl, title, likes: initialLikes, comments, genres }: MediaCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [likes, setLikes] = useState(initialLikes);
+
+  const handleLike = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsLiked(!isLiked);
+    setLikes(prev => isLiked ? prev - 1 : prev + 1);
+    toast.success(isLiked ? "Removed from favorites" : "Added to favorites");
+  };
+
+  const handleShare = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(window.location.origin + `/media/${id}`);
+    toast.success("Link copied to clipboard!");
+  };
 
   return (
-    <div className="media-card">
+    <div className="media-card group">
       <Link to={`/media/${id}`}>
-        <div className="relative group">
+        <div className="relative overflow-hidden">
           <img 
             src={imageUrl} 
             alt={title} 
-            className="w-full h-48 object-cover"
+            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
             <h3 className="text-white font-medium truncate">{title}</h3>
           </div>
         </div>
       </Link>
-      <div className="p-3 flex items-center justify-between">
+      <div className="p-3 flex items-center justify-between bg-secondary/50 backdrop-blur-sm">
         <div className="flex gap-3">
           <button 
-            onClick={() => setIsLiked(!isLiked)}
-            className="flex items-center gap-1 text-sm"
+            onClick={handleLike}
+            className="flex items-center gap-1 text-sm transition-colors hover:text-primary"
           >
             <Heart 
-              className={`w-4 h-4 ${isLiked ? 'fill-primary text-primary' : 'text-gray-400'}`}
+              className={`w-4 h-4 transition-all ${isLiked ? 'fill-primary text-primary scale-110' : 'text-gray-400'}`}
             />
             <span>{likes}</span>
           </button>
@@ -43,6 +58,12 @@ export const MediaCard = ({ id, imageUrl, title, likes, comments, genres }: Medi
             <MessageCircle className="w-4 h-4" />
             <span>{comments}</span>
           </div>
+          <button
+            onClick={handleShare}
+            className="flex items-center gap-1 text-sm text-gray-400 hover:text-primary transition-colors"
+          >
+            <Share2 className="w-4 h-4" />
+          </button>
         </div>
         <div className="flex gap-1">
           {genres.slice(0, 2).map((genre) => (

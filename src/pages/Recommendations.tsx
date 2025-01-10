@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MediaGrid } from "@/components/MediaGrid";
 import { Button } from "@/components/ui/button";
 import { Sparkles, TrendingUp, Clock } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const GENRES = ["Action", "Romance", "Comedy", "Fantasy", "Slice of Life", "Drama", "Art", "Memes"];
 
@@ -59,42 +60,46 @@ const SAMPLE_MEDIA = [
 const Recommendations = () => {
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'recommended' | 'trending' | 'new'>('recommended');
+  const isMobile = useIsMobile();
 
   const filteredMedia = selectedGenre 
     ? SAMPLE_MEDIA.filter(item => item.genres.includes(selectedGenre))
     : SAMPLE_MEDIA;
 
   return (
-    <div className="min-h-screen animate-fade-in space-y-6 max-w-7xl mx-auto px-4">
-      <div className="glass rounded-lg p-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
+    <div className="min-h-screen animate-fade-in space-y-4 md:space-y-6 max-w-7xl mx-auto px-2 md:px-4">
+      <div className="glass rounded-lg p-3 md:p-6 space-y-4 md:space-y-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
             Discover Amazing Content
           </h1>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap md:flex-nowrap gap-2">
             <Button
+              size={isMobile ? "sm" : "default"}
               variant={activeTab === 'recommended' ? 'default' : 'secondary'}
               onClick={() => setActiveTab('recommended')}
-              className="gap-2"
+              className="flex-1 md:flex-none gap-2"
             >
               <Sparkles className="w-4 h-4" />
-              Recommended
+              {!isMobile && "Recommended"}
             </Button>
             <Button
+              size={isMobile ? "sm" : "default"}
               variant={activeTab === 'trending' ? 'default' : 'secondary'}
               onClick={() => setActiveTab('trending')}
-              className="gap-2"
+              className="flex-1 md:flex-none gap-2"
             >
               <TrendingUp className="w-4 h-4" />
-              Trending
+              {!isMobile && "Trending"}
             </Button>
             <Button
+              size={isMobile ? "sm" : "default"}
               variant={activeTab === 'new' ? 'default' : 'secondary'}
               onClick={() => setActiveTab('new')}
-              className="gap-2"
+              className="flex-1 md:flex-none gap-2"
             >
               <Clock className="w-4 h-4" />
-              New
+              {!isMobile && "New"}
             </Button>
           </div>
         </div>
@@ -103,6 +108,7 @@ const Recommendations = () => {
           {GENRES.map((genre) => (
             <Button
               key={genre}
+              size={isMobile ? "sm" : "default"}
               variant={selectedGenre === genre ? "default" : "outline"}
               onClick={() => setSelectedGenre(selectedGenre === genre ? null : genre)}
               className="whitespace-nowrap transition-all hover:scale-105"

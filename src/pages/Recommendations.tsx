@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, TrendingUp, Clock } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Particles from "react-particles";
-import { loadFull } from "tsparticles";
+import { loadFull } from "tsparticles-engine";
 import type { Engine } from "tsparticles-engine";
 import { SearchPanel } from "@/components/SearchPanel";
 
@@ -108,7 +108,7 @@ const Recommendations = () => {
               type: "circle",
             },
             opacity: {
-              value: 0.5,
+              value: 0.3,
               random: true,
             },
             size: {
@@ -139,39 +139,44 @@ const Recommendations = () => {
       
       <SearchPanel onSearch={handleSearch} />
       
-      <div className="relative z-10 animate-fade-in space-y-4 md:space-y-6 w-full px-4 md:px-8">
-        <div className="glass rounded-lg p-3 md:p-6 space-y-4 md:space-y-6 max-w-[1920px] mx-auto">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <h1 className="text-xl md:text-3xl font-bold gradient-text">
-              Discover Amazing Content
-            </h1>
-            <div className="flex flex-wrap md:flex-nowrap gap-2">
+      <div className="relative z-10 animate-fade-in space-y-6 md:space-y-8 w-full px-4 md:px-8 py-6">
+        <div className="glass rounded-xl p-6 md:p-8 space-y-6 max-w-[1920px] mx-auto border border-primary/20 shadow-lg shadow-primary/5">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="space-y-2 text-center md:text-left">
+              <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary-foreground bg-clip-text text-transparent">
+                Discover Amazing Content
+              </h1>
+              <p className="text-muted-foreground text-sm md:text-base">
+                Explore our curated collection of stunning artworks
+              </p>
+            </div>
+            <div className="flex flex-wrap md:flex-nowrap gap-3 w-full md:w-auto justify-center">
               <Button
                 size={isMobile ? "sm" : "default"}
                 variant={activeTab === 'recommended' ? 'default' : 'secondary'}
                 onClick={() => setActiveTab('recommended')}
-                className="flex-1 md:flex-none gap-2"
+                className={`flex-1 md:flex-none gap-2 ${activeTab === 'recommended' ? 'shadow-lg shadow-primary/20' : ''}`}
               >
                 <Sparkles className="w-4 h-4" />
-                {!isMobile && "Recommended"}
+                <span className={isMobile ? 'hidden' : 'inline'}>Recommended</span>
               </Button>
               <Button
                 size={isMobile ? "sm" : "default"}
                 variant={activeTab === 'trending' ? 'default' : 'secondary'}
                 onClick={() => setActiveTab('trending')}
-                className="flex-1 md:flex-none gap-2"
+                className={`flex-1 md:flex-none gap-2 ${activeTab === 'trending' ? 'shadow-lg shadow-primary/20' : ''}`}
               >
                 <TrendingUp className="w-4 h-4" />
-                {!isMobile && "Trending"}
+                <span className={isMobile ? 'hidden' : 'inline'}>Trending</span>
               </Button>
               <Button
                 size={isMobile ? "sm" : "default"}
                 variant={activeTab === 'new' ? 'default' : 'secondary'}
                 onClick={() => setActiveTab('new')}
-                className="flex-1 md:flex-none gap-2"
+                className={`flex-1 md:flex-none gap-2 ${activeTab === 'new' ? 'shadow-lg shadow-primary/20' : ''}`}
               >
                 <Clock className="w-4 h-4" />
-                {!isMobile && "New"}
+                <span className={isMobile ? 'hidden' : 'inline'}>New</span>
               </Button>
             </div>
           </div>

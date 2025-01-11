@@ -62,15 +62,15 @@
   }
 
   .genre-chip.selected {
-    @apply bg-primary text-white;
+    @apply bg-primary text-white shadow-md shadow-primary/20;
   }
 
   .genre-chip.excluded {
-    @apply bg-destructive text-white;
+    @apply bg-destructive text-white shadow-md shadow-destructive/20;
   }
 
   .genre-chip.default {
-    @apply bg-secondary hover:bg-secondary/80 text-gray-300;
+    @apply bg-secondary hover:bg-secondary/80 text-gray-300 hover:shadow-md hover:shadow-primary/10;
   }
 
   /* Mobile Sidebar */

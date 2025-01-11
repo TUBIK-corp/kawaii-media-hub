@@ -59,7 +59,21 @@ const MediaView = () => {
   const [likes, setLikes] = useState(342);
 
   // Find media from sample data
-  const media = MEDIA_DATA.find(m => m.id === id) || MEDIA_DATA[0];
+  const media = MEDIA_DATA.find(m => m.id === id);
+
+  // If media not found, show error or redirect
+  if (!media) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <h1 className="text-2xl font-bold">Media not found</h1>
+          <Link to="/recommendations" className="text-primary hover:underline">
+            Return to recommendations
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const handleCommentSubmit = () => {
     if (!comment.trim()) {

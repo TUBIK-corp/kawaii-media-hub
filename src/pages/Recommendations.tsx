@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, TrendingUp, Clock } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Particles from "react-particles";
-import { loadFull } from "tsparticles-engine";
+import { loadFull } from "tsparticles";
 import type { Engine } from "tsparticles-engine";
 import { SearchPanel } from "@/components/SearchPanel";
 

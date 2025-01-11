@@ -8,7 +8,7 @@ import { loadFull } from "tsparticles";
 import type { Engine } from "tsparticles-engine";
 import { SearchPanel } from "@/components/SearchPanel";
 
-const SAMPLE_MEDIA = [
+export const SAMPLE_MEDIA = [
   {
     id: "1",
     imageUrl: "https://img.freepik.com/premium-photo/cute-anime-girl-kawai_941097-16202.jpg",

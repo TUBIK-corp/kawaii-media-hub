@@ -6,33 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
 
-// Sample media data - in a real app this would come from an API
-const MEDIA_DATA = [
-  {
-    id: "1",
-    imageUrl: "https://cdn.pixabay.com/photo/2023/03/31/12/45/anime-7888415_1280.jpg",
-    title: "Cherry Blossom Dreams",
-    author: "ArtistName",
-    description: "A beautiful scene capturing the essence of spring in Japan. The cherry blossoms create a magical atmosphere as they dance in the wind.",
-    genres: ["Romance", "Drama", "Slice of Life"]
-  },
-  {
-    id: "2",
-    imageUrl: "https://cdn.pixabay.com/photo/2023/03/31/12/44/anime-7888413_1280.jpg",
-    title: "Midnight Adventure",
-    author: "NightArtist",
-    description: "An exciting journey through the neon-lit streets of a cyberpunk city, where danger and mystery lurk around every corner.",
-    genres: ["Action", "Sci-Fi", "Adventure"]
-  },
-  {
-    id: "3",
-    imageUrl: "https://cdn5.vectorstock.com/i/1000x1000/65/54/cute-anime-girl-in-black-hoodie-and-green-eyes-vector-39706554.jpg",
-    title: "Green Eyes",
-    author: "HoodieArt",
-    description: "A mysterious character with piercing green eyes, wearing a black hoodie. The contrast creates an atmosphere of intrigue and mystery.",
-    genres: ["Drama", "Mystery"]
-  }
-];
+// Import the same data from Recommendations
+import { SAMPLE_MEDIA } from "@/pages/Recommendations";
 
 const SAMPLE_COMMENTS = [
   {
@@ -58,10 +33,9 @@ const MediaView = () => {
   const [comments, setComments] = useState(SAMPLE_COMMENTS);
   const [likes, setLikes] = useState(342);
 
-  // Find media from sample data
-  const media = MEDIA_DATA.find(m => m.id === id);
+  // Find media from the same data source as recommendations
+  const media = SAMPLE_MEDIA.find(m => m.id === id);
 
-  // If media not found, show error or redirect
   if (!media) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center">
@@ -119,7 +93,7 @@ const MediaView = () => {
               <img 
                 src={media.imageUrl} 
                 alt={media.title}
-                className="w-full aspect-video object-cover"
+                className="w-full object-contain max-h-[70vh]"
               />
               <div className="p-4 space-y-4">
                 <div className="flex items-center justify-between">
@@ -149,12 +123,10 @@ const MediaView = () => {
                     <AvatarImage src="https://cdn.pixabay.com/photo/2022/12/03/15/00/anime-7632903_1280.jpg" />
                   </Avatar>
                   <div>
-                    <h3 className="font-medium">{media.author}</h3>
-                    <p className="text-sm text-gray-400">Content Creator</p>
+                    <h3 className="font-medium">Content Creator</h3>
+                    <p className="text-sm text-gray-400">Artist</p>
                   </div>
                 </div>
-
-                <p className="text-gray-300">{media.description}</p>
 
                 <div className="flex flex-wrap gap-2">
                   {media.genres.map((genre) => (

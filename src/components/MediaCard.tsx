@@ -17,6 +17,7 @@ export const MediaCard = ({ id, imageUrl, title, likes: initialLikes, comments, 
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(initialLikes);
   const isMobile = useIsMobile();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleLike = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -32,13 +33,14 @@ export const MediaCard = ({ id, imageUrl, title, likes: initialLikes, comments, 
   };
 
   return (
-    <div className="media-card group">
-      <Link to={`/media/${id}`}>
+    <div className="media-card group w-full">
+      <Link to={`/media/${id}`} className="block relative">
         <div className="relative overflow-hidden">
           <img 
             src={imageUrl} 
             alt={title} 
-            className="w-full h-36 sm:h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+            className={`w-full object-cover transition-all duration-300 group-hover:scale-110 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            onLoad={() => setImageLoaded(true)}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2 sm:p-4">
             <h3 className="text-sm sm:text-base text-white font-medium truncate">{title}</h3>

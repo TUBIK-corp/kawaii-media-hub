@@ -72,6 +72,13 @@
   .genre-chip.default {
     @apply bg-secondary hover:bg-secondary/80 text-gray-300;
   }
+
+  /* Mobile Sidebar */
+  @media (max-width: 768px) {
+    [data-sidebar] {
+      @apply fixed inset-y-0 left-0 z-50;
+    }
+  }
 }
 
 @layer utilities {

@@ -1,12 +1,38 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Heart, MessageCircle, Share2, Send, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Avatar } from "@/components/ui/avatar";
-import { AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
-import { Link } from "react-router-dom";
+
+// Sample media data - in a real app this would come from an API
+const MEDIA_DATA = [
+  {
+    id: "1",
+    imageUrl: "https://cdn.pixabay.com/photo/2023/03/31/12/45/anime-7888415_1280.jpg",
+    title: "Cherry Blossom Dreams",
+    author: "ArtistName",
+    description: "A beautiful scene capturing the essence of spring in Japan. The cherry blossoms create a magical atmosphere as they dance in the wind.",
+    genres: ["Romance", "Drama", "Slice of Life"]
+  },
+  {
+    id: "2",
+    imageUrl: "https://cdn.pixabay.com/photo/2023/03/31/12/44/anime-7888413_1280.jpg",
+    title: "Midnight Adventure",
+    author: "NightArtist",
+    description: "An exciting journey through the neon-lit streets of a cyberpunk city, where danger and mystery lurk around every corner.",
+    genres: ["Action", "Sci-Fi", "Adventure"]
+  },
+  {
+    id: "3",
+    imageUrl: "https://cdn5.vectorstock.com/i/1000x1000/65/54/cute-anime-girl-in-black-hoodie-and-green-eyes-vector-39706554.jpg",
+    title: "Green Eyes",
+    author: "HoodieArt",
+    description: "A mysterious character with piercing green eyes, wearing a black hoodie. The contrast creates an atmosphere of intrigue and mystery.",
+    genres: ["Drama", "Mystery"]
+  }
+];
 
 const SAMPLE_COMMENTS = [
   {
@@ -32,15 +58,8 @@ const MediaView = () => {
   const [comments, setComments] = useState(SAMPLE_COMMENTS);
   const [likes, setLikes] = useState(342);
 
-  // Find media from sample data (in real app, this would be an API call)
-  const media = {
-    id: "1",
-    imageUrl: "https://cdn.pixabay.com/photo/2023/03/31/12/45/anime-7888415_1280.jpg",
-    title: "Cherry Blossom Dreams",
-    author: "ArtistName",
-    description: "A beautiful scene capturing the essence of spring in Japan. The cherry blossoms create a magical atmosphere as they dance in the wind.",
-    genres: ["Romance", "Drama", "Slice of Life"]
-  };
+  // Find media from sample data
+  const media = MEDIA_DATA.find(m => m.id === id) || MEDIA_DATA[0];
 
   const handleCommentSubmit = () => {
     if (!comment.trim()) {

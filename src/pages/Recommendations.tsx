@@ -83,41 +83,21 @@ const Recommendations = () => {
   };
 
   return (
-    <div className="min-h-screen w-full m-0 p-0 relative">
+    <div className="min-h-screen w-full relative">
       <Particles
         id="tsparticles"
         init={particlesInit}
         options={{
-          background: {
-            color: {
-              value: "transparent",
-            },
-          },
+          background: { color: { value: "transparent" } },
           particles: {
-            number: {
-              value: 50,
-              density: {
-                enable: true,
-                value_area: 800,
-              },
-            },
-            color: {
-              value: "#7E69AB",
-            },
-            shape: {
-              type: "circle",
-            },
-            opacity: {
-              value: 0.3,
-              random: true,
-            },
-            size: {
-              value: 3,
-              random: true,
-            },
+            number: { value: 30, density: { enable: true, value_area: 1000 } },
+            color: { value: "#7E69AB" },
+            shape: { type: "circle" },
+            opacity: { value: 0.2, random: true },
+            size: { value: 3, random: true },
             move: {
               enable: true,
-              speed: 1,
+              speed: 0.5,
               direction: "none",
               random: true,
               straight: false,
@@ -128,10 +108,7 @@ const Recommendations = () => {
           interactivity: {
             detect_on: "canvas",
             events: {
-              onhover: {
-                enable: true,
-                mode: "repulse",
-              },
+              onhover: { enable: true, mode: "repulse" },
             },
           },
         }}
@@ -139,15 +116,15 @@ const Recommendations = () => {
       
       <SearchPanel onSearch={handleSearch} />
       
-      <div className="relative z-10 animate-fade-in space-y-6 md:space-y-8 w-full px-4 md:px-8 py-6">
-        <div className="glass rounded-xl p-6 md:p-8 space-y-6 max-w-[1920px] mx-auto border border-primary/20 shadow-lg shadow-primary/5">
+      <div className="relative z-10 pt-6 animate-fade-in">
+        <div className="glass-panel mx-6 p-6 md:p-8 space-y-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2 text-center md:text-left">
-              <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary-foreground bg-clip-text text-transparent">
-                Discover Amazing Content
+              <h1 className="text-3xl md:text-4xl font-bold gradient-text">
+                Медиа Галерея
               </h1>
-              <p className="text-muted-foreground text-sm md:text-base">
-                Explore our curated collection of stunning artworks
+              <p className="text-gray-400 text-sm md:text-base">
+                Исследуйте нашу коллекцию уникальных работ
               </p>
             </div>
             <div className="flex flex-wrap md:flex-nowrap gap-3 w-full md:w-auto justify-center">
@@ -158,7 +135,7 @@ const Recommendations = () => {
                 className={`flex-1 md:flex-none gap-2 ${activeTab === 'recommended' ? 'shadow-lg shadow-primary/20' : ''}`}
               >
                 <Sparkles className="w-4 h-4" />
-                <span className={isMobile ? 'hidden' : 'inline'}>Recommended</span>
+                <span className={isMobile ? 'hidden' : 'inline'}>Рекомендации</span>
               </Button>
               <Button
                 size={isMobile ? "sm" : "default"}
@@ -167,7 +144,7 @@ const Recommendations = () => {
                 className={`flex-1 md:flex-none gap-2 ${activeTab === 'trending' ? 'shadow-lg shadow-primary/20' : ''}`}
               >
                 <TrendingUp className="w-4 h-4" />
-                <span className={isMobile ? 'hidden' : 'inline'}>Trending</span>
+                <span className={isMobile ? 'hidden' : 'inline'}>Популярное</span>
               </Button>
               <Button
                 size={isMobile ? "sm" : "default"}
@@ -176,15 +153,13 @@ const Recommendations = () => {
                 className={`flex-1 md:flex-none gap-2 ${activeTab === 'new' ? 'shadow-lg shadow-primary/20' : ''}`}
               >
                 <Clock className="w-4 h-4" />
-                <span className={isMobile ? 'hidden' : 'inline'}>New</span>
+                <span className={isMobile ? 'hidden' : 'inline'}>Новое</span>
               </Button>
             </div>
           </div>
         </div>
 
-        <div className="max-w-[1920px] mx-auto">
-          <MediaGrid items={filteredMedia} />
-        </div>
+        <MediaGrid items={filteredMedia} />
       </div>
     </div>
   );

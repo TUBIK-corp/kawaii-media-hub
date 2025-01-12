@@ -1,0 +1,53 @@
+@layer components {
+  .media-card {
+    @apply glass rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20;
+  }
+  
+  .btn-primary {
+    @apply px-4 py-2 bg-primary hover:bg-primary-hover text-primary-foreground rounded-lg transition-colors;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-[#7E69AB] via-[#E5DEFF] to-[#7E69AB] bg-clip-text text-transparent;
+  }
+
+  .genre-chip {
+    @apply px-3 py-1.5 rounded-full transition-all duration-300 cursor-pointer text-sm font-medium;
+  }
+
+  .genre-chip.selected {
+    @apply bg-primary text-white shadow-md shadow-primary/20;
+  }
+
+  .genre-chip.excluded {
+    @apply bg-destructive text-white shadow-md shadow-destructive/20;
+  }
+
+  .genre-chip.default {
+    @apply bg-[#1A1F2C] hover:bg-[#252A3A] text-gray-300 hover:shadow-md hover:shadow-primary/10;
+  }
+
+  .glass {
+    @apply bg-[#1A1F2C]/60 backdrop-blur-md border border-white/5 shadow-xl shadow-black/10;
+  }
+
+  .header {
+    @apply fixed top-0 left-0 right-0 z-50 glass border-b border-white/5 py-4;
+  }
+
+  .header-content {
+    @apply container mx-auto px-4 flex items-center justify-between;
+  }
+
+  .header-title {
+    @apply text-2xl md:text-3xl font-bold gradient-text;
+  }
+
+  .header-subtitle {
+    @apply text-sm text-gray-400 mt-1;
+  }
+
+  .content-grid {
+    @apply mt-24 container mx-auto px-4;
+  }
+}

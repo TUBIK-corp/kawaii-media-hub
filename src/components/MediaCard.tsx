@@ -23,57 +23,57 @@ export const MediaCard = ({ id, imageUrl, title, likes: initialLikes, comments, 
     e.preventDefault();
     setIsLiked(!isLiked);
     setLikes(prev => isLiked ? prev - 1 : prev + 1);
-    toast.success(isLiked ? "Removed from favorites" : "Added to favorites");
+    toast.success(isLiked ? "Удалено из избранного" : "Добавлено в избранное");
   };
 
   const handleShare = (e: React.MouseEvent) => {
     e.preventDefault();
     navigator.clipboard.writeText(window.location.origin + `/media/${id}`);
-    toast.success("Link copied to clipboard!");
+    toast.success("Ссылка скопирована!");
   };
 
   return (
     <div className="media-card group w-full">
       <Link to={`/media/${id}`} className="block relative">
-        <div className="relative overflow-hidden">
+        <div className="relative aspect-[4/5] overflow-hidden">
           <img 
             src={imageUrl} 
             alt={title} 
-            className={`w-full object-cover transition-all duration-300 group-hover:scale-110 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            className={`w-full h-full object-cover transition-all duration-300 group-hover:scale-110 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             onLoad={() => setImageLoaded(true)}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2 sm:p-4">
-            <h3 className="text-sm sm:text-base text-white font-medium truncate">{title}</h3>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <h3 className="text-base sm:text-lg text-white font-medium line-clamp-2">{title}</h3>
           </div>
         </div>
       </Link>
-      <div className="p-2 sm:p-3 flex items-center justify-between bg-secondary/50 backdrop-blur-sm">
-        <div className="flex gap-2 sm:gap-3">
+      <div className="p-3 sm:p-4 flex items-center justify-between bg-[#1A1F2C]/80 backdrop-blur-sm">
+        <div className="flex gap-3 sm:gap-4">
           <button 
             onClick={handleLike}
-            className="flex items-center gap-1 text-xs sm:text-sm transition-colors hover:text-primary"
+            className="flex items-center gap-1.5 text-sm transition-colors hover:text-primary"
           >
             <Heart 
-              className={`w-3 h-3 sm:w-4 sm:h-4 transition-all ${isLiked ? 'fill-primary text-primary scale-110' : 'text-gray-400'}`}
+              className={`w-4 h-4 sm:w-5 sm:h-5 transition-all ${isLiked ? 'fill-primary text-primary scale-110' : 'text-gray-400'}`}
             />
             <span>{likes}</span>
           </button>
-          <div className="flex items-center gap-1 text-xs sm:text-sm text-gray-400">
-            <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
+          <div className="flex items-center gap-1.5 text-sm text-gray-400">
+            <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>{comments}</span>
           </div>
           <button
             onClick={handleShare}
-            className="flex items-center gap-1 text-xs sm:text-sm text-gray-400 hover:text-primary transition-colors"
+            className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors"
           >
-            <Share2 className="w-3 h-3 sm:w-4 sm:h-4" />
+            <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </div>
-        <div className="flex gap-1">
+        <div className="flex gap-2">
           {genres.slice(0, isMobile ? 1 : 2).map((genre) => (
             <span 
               key={genre}
-              className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full bg-primary/20 text-primary"
+              className="text-xs px-2.5 py-1 rounded-full bg-primary/20 text-primary font-medium"
             >
               {genre}
             </span>

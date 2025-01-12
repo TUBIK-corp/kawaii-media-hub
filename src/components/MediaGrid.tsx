@@ -13,9 +13,9 @@ interface MediaGridProps {
 
 export const MediaGrid = ({ items }: MediaGridProps) => {
   return (
-    <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-3 md:gap-4 p-2 md:p-4 space-y-3 md:space-y-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 p-4 md:p-6">
       {items.map((item) => (
-        <div key={item.id} className="break-inside-avoid">
+        <div key={item.id}>
           <MediaCard {...item} />
         </div>
       ))}

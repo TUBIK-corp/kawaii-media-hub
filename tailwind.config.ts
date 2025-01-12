@@ -30,16 +30,16 @@ export default {
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#221F26",
-          foreground: "#C8C8C9",
+          DEFAULT: "#1A1F2C",
+          foreground: "#E5DEFF",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "#FF5757",
+          foreground: "#FFFFFF",
         },
         muted: {
-          DEFAULT: "#403E43",
-          foreground: "#C8C8C9",
+          DEFAULT: "#252A3A",
+          foreground: "#E5DEFF",
         },
         accent: {
           DEFAULT: "#E5DEFF",

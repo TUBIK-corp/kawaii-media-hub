@@ -7,6 +7,7 @@ import Particles from "react-particles";
 import { loadFull } from "tsparticles";
 import type { Engine } from "tsparticles-engine";
 import { SearchPanel } from "@/components/SearchPanel";
+import { Header } from "@/components/Header";
 
 export const SAMPLE_MEDIA = [
   {
@@ -84,6 +85,8 @@ const Recommendations = () => {
 
   return (
     <div className="min-h-screen w-full relative">
+      <Header />
+      
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -91,7 +94,7 @@ const Recommendations = () => {
           background: { color: { value: "transparent" } },
           particles: {
             number: { value: 30, density: { enable: true, value_area: 1000 } },
-            color: { value: "#7E69AB" },
+            color: { value: "#4f46e5" },
             shape: { type: "circle" },
             opacity: { value: 0.2, random: true },
             size: { value: 3, random: true },
@@ -116,7 +119,7 @@ const Recommendations = () => {
       
       <SearchPanel onSearch={handleSearch} />
       
-      <div className="relative z-10 pt-6 animate-fade-in">
+      <div className="relative z-10 pt-24 animate-fade-in">
         <div className="glass-panel mx-6 p-6 md:p-8 space-y-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2 text-center md:text-left">

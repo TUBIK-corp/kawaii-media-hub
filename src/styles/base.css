@@ -4,10 +4,10 @@
 
 @layer base {
   :root {
-    --background: 222 47% 5%;
+    --background: 222 84% 2%;
     --foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
+    --border: 217 33% 10%;
+    --input: 217 33% 10%;
     --ring: 224 71.4% 4.1%;
     --radius: 0.75rem;
   }
@@ -17,10 +17,10 @@
   }
 
   body {
-    @apply bg-[#030712] text-foreground min-h-screen w-full m-0 p-0;
+    @apply bg-[#01040a] text-foreground min-h-screen w-full m-0 p-0;
     background-image: 
-      radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(15, 23, 42, 0.05) 0px, transparent 50%);
+      radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.03) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(15, 23, 42, 0.03) 0px, transparent 50%);
     background-attachment: fixed;
   }
 

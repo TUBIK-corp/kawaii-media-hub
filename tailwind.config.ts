@@ -25,24 +25,24 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#6366f1", // Indigo
-          hover: "#4f46e5",
+          DEFAULT: "#4f46e5",
+          hover: "#4338ca",
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#0f172a", // Very dark blue
+          DEFAULT: "#0a0f1a",
           foreground: "#e2e8f0",
         },
         destructive: {
-          DEFAULT: "#ef4444", // Red
+          DEFAULT: "#dc2626",
           foreground: "#FFFFFF",
         },
         muted: {
-          DEFAULT: "#1e293b", // Dark slate blue
+          DEFAULT: "#131825",
           foreground: "#e2e8f0",
         },
         accent: {
-          DEFAULT: "#312e81", // Darker indigo
+          DEFAULT: "#1e1b4b",
           foreground: "#e2e8f0",
         },
       },

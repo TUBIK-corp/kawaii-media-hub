@@ -1,14 +1,16 @@
 import { MediaCard } from "./MediaCard";
 
+interface MediaItem {
+  id: string;
+  imageUrl: string;
+  title: string;
+  likes: number;
+  comments: number;
+  genres: string[];
+}
+
 interface MediaGridProps {
-  items: Array<{
-    id: string;
-    imageUrl: string;
-    title: string;
-    likes: number;
-    comments: number;
-    genres: string[];
-  }>;
+  items: MediaItem[];
 }
 
 export const MediaGrid = ({ items }: MediaGridProps) => {

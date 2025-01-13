@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, TrendingUp, Clock } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Particles from "react-particles";
-import { loadFull } from "tsparticles";
+import { loadFull } from "tsparticles-engine";
 import type { Engine } from "tsparticles-engine";
 import { SearchPanel } from "@/components/SearchPanel";
 import { Header } from "@/components/Header";
@@ -16,7 +16,8 @@ export const SAMPLE_MEDIA = [
     title: "Kawaii Dreams",
     likes: 342,
     comments: 56,
-    genres: ["Art", "Fantasy"]
+    genres: ["Art", "Fantasy"],
+    type: "image"
   },
   {
     id: "2",
@@ -24,15 +25,18 @@ export const SAMPLE_MEDIA = [
     title: "Magical Forest",
     likes: 567,
     comments: 89,
-    genres: ["Fantasy", "Art"]
+    genres: ["Fantasy", "Art"],
+    type: "image"
   },
   {
     id: "3",
-    imageUrl: "https://cdn.pixabay.com/photo/2023/03/31/12/44/anime-7888413_1280.jpg",
+    videoUrl: "https://example.com/sample.mp4",
+    thumbnailUrl: "https://cdn.pixabay.com/photo/2023/03/31/12/44/anime-7888413_1280.jpg",
     title: "Urban Adventures",
     likes: 234,
     comments: 45,
-    genres: ["Action", "Comedy"]
+    genres: ["Action", "Comedy"],
+    type: "video"
   },
   {
     id: "4",
@@ -40,15 +44,18 @@ export const SAMPLE_MEDIA = [
     title: "Sunset Memories",
     likes: 789,
     comments: 123,
-    genres: ["Slice of Life", "Romance"]
+    genres: ["Slice of Life", "Romance"],
+    type: "image"
   },
   {
     id: "5",
-    imageUrl: "https://cdn5.vectorstock.com/i/1000x1000/65/54/cute-anime-girl-in-black-hoodie-and-green-eyes-vector-39706554.jpg",
+    gifUrl: "https://example.com/sample.gif",
+    thumbnailUrl: "https://cdn5.vectorstock.com/i/1000x1000/65/54/cute-anime-girl-in-black-hoodie-and-green-eyes-vector-39706554.jpg",
     title: "Mystic Eyes",
     likes: 456,
     comments: 78,
-    genres: ["Mystery", "Drama"]
+    genres: ["Mystery", "Drama"],
+    type: "gif"
   },
   {
     id: "6",
@@ -56,7 +63,8 @@ export const SAMPLE_MEDIA = [
     title: "Neon City Lights",
     likes: 678,
     comments: 91,
-    genres: ["Fantasy", "Action"]
+    genres: ["Fantasy", "Action"],
+    type: "image"
   }
 ];
 
@@ -84,7 +92,12 @@ const Recommendations = () => {
   };
 
   return (
-    <div className="min-h-screen w-full relative">
+    <div 
+      className="min-h-screen w-full relative bg-cover bg-center bg-fixed"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://avatars.mds.yandex.net/i?id=4270b6a4bd492de86b93e52ff57ee426_l-4335903-images-thumbs&n=33&w=1728&h=1080')`,
+      }}
+    >
       <Header />
       
       <Particles

@@ -41,4 +41,10 @@
   .header-nav {
     @apply fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/5;
   }
+
+  .stat-card {
+    @apply flex flex-col items-center justify-center p-4 rounded-lg
+           bg-secondary/20 border border-primary/10 backdrop-blur-sm
+           hover:border-primary/30 transition-colors;
+  }
 }

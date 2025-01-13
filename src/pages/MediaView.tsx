@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Heart, MessageCircle, Share2, Send, ArrowLeft } from "lucide-react";
+import { Heart, MessageCircle, Share2, Send, ArrowLeft, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
-
-// Import the same data from Recommendations
 import { SAMPLE_MEDIA } from "@/pages/Recommendations";
 
 const SAMPLE_COMMENTS = [
@@ -32,16 +30,16 @@ const MediaView = () => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState(SAMPLE_COMMENTS);
   const [likes, setLikes] = useState(342);
+  const [views] = useState(1337);
 
-  // Find media from the same data source as recommendations
   const media = SAMPLE_MEDIA.find(m => m.id === id);
 
   if (!media) {
     return (
-      <div className="min-h-screen w-full flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <h1 className="text-2xl font-bold">Media not found</h1>
-          <Link to="/recommendations" className="text-primary hover:underline">
+      <div className="min-h-screen w-full flex items-center justify-center bg-secondary/20">
+        <div className="text-center space-y-4 animate-pulse">
+          <h1 className="text-2xl font-bold gradient-text">Media not found</h1>
+          <Link to="/recommendations" className="text-primary hover:text-primary/80 transition-colors">
             Return to recommendations
           </Link>
         </div>
@@ -51,7 +49,9 @@ const MediaView = () => {
 
   const handleCommentSubmit = () => {
     if (!comment.trim()) {
-      toast.error("Please enter a comment");
+      toast.error("Please enter a comment", {
+        style: { background: '#1a1f2c', border: '1px solid rgba(255,255,255,0.1)' }
+      });
       return;
     }
 
@@ -65,66 +65,94 @@ const MediaView = () => {
 
     setComments([newComment, ...comments]);
     setComment("");
-    toast.success("Comment posted successfully!");
+    toast.success("Comment posted!", {
+      style: { background: '#1a1f2c', border: '1px solid rgba(255,255,255,0.1)' }
+    });
   };
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
-    toast.success("Link copied to clipboard!");
+    toast.success("Link copied!", {
+      style: { background: '#1a1f2c', border: '1px solid rgba(255,255,255,0.1)' }
+    });
   };
 
   const handleLike = () => {
     setIsLiked(!isLiked);
     setLikes(prev => isLiked ? prev - 1 : prev + 1);
-    toast.success(isLiked ? "Removed from favorites" : "Added to favorites");
+    toast.success(isLiked ? "Removed from favorites" : "Added to favorites", {
+      style: { background: '#1a1f2c', border: '1px solid rgba(255,255,255,0.1)' }
+    });
   };
 
   return (
-    <div className="min-h-screen w-full animate-fade-in">
-      <div className="max-w-[1920px] mx-auto p-4">
-        <Link to="/recommendations" className="inline-flex items-center gap-2 text-gray-400 hover:text-primary transition-colors mb-4">
-          <ArrowLeft className="w-4 h-4" />
-          Back to recommendations
+    <div className="min-h-screen w-full animate-fade-in bg-gradient-to-b from-secondary/20 to-background">
+      <div className="max-w-[1920px] mx-auto p-4 space-y-6">
+        <Link 
+          to="/recommendations" 
+          className="inline-flex items-center gap-2 text-gray-400 hover:text-primary transition-colors group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          <span className="text-sm">Back to recommendations</span>
         </Link>
         
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-4">
-          <div className="space-y-4">
-            <div className="glass rounded-lg overflow-hidden">
-              <img 
-                src={media.imageUrl} 
-                alt={media.title}
-                className="w-full object-contain max-h-[70vh]"
-              />
-              <div className="p-4 space-y-4">
-                <div className="flex items-center justify-between">
-                  <h1 className="text-2xl md:text-3xl font-bold">{media.title}</h1>
-                  <div className="flex gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-6">
+          <div className="space-y-6">
+            <div className="glass-panel overflow-hidden group">
+              <div className="relative">
+                <img 
+                  src={media.imageUrl} 
+                  alt={media.title}
+                  className="w-full object-cover max-h-[70vh] transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              </div>
+              
+              <div className="p-6 space-y-6 relative">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  <h1 className="text-2xl md:text-3xl font-bold gradient-text">{media.title}</h1>
+                  <div className="flex gap-3">
                     <Button
                       variant="outline"
                       size="icon"
                       onClick={handleLike}
-                      className="shrink-0"
+                      className="hover:bg-primary/20 transition-colors duration-300"
                     >
-                      <Heart className={`w-5 h-5 ${isLiked ? 'fill-primary text-primary' : ''}`} />
+                      <Heart className={`w-5 h-5 transition-colors duration-300 ${isLiked ? 'fill-primary text-primary' : ''}`} />
                     </Button>
                     <Button
                       variant="outline"
                       size="icon"
                       onClick={handleShare}
-                      className="shrink-0"
+                      className="hover:bg-primary/20 transition-colors duration-300"
                     >
                       <Share2 className="w-5 h-5" />
                     </Button>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <Avatar>
+                <div className="flex items-center gap-4">
+                  <Avatar className="ring-2 ring-primary/20 ring-offset-2 ring-offset-background">
                     <AvatarImage src="https://cdn.pixabay.com/photo/2022/12/03/15/00/anime-7632903_1280.jpg" />
                   </Avatar>
                   <div>
                     <h3 className="font-medium">Content Creator</h3>
-                    <p className="text-sm text-gray-400">Artist</p>
+                    <p className="text-sm text-gray-400">Digital Artist</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-4">
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <Eye className="w-4 h-4" />
+                    <span>{views.toLocaleString()} views</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <Heart className="w-4 h-4" />
+                    <span>{likes.toLocaleString()} likes</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <MessageCircle className="w-4 h-4" />
+                    <span>{comments.length} comments</span>
                   </div>
                 </div>
 
@@ -132,7 +160,8 @@ const MediaView = () => {
                   {media.genres.map((genre) => (
                     <span 
                       key={genre}
-                      className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm"
+                      className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm
+                               hover:bg-primary/20 transition-colors cursor-pointer"
                     >
                       {genre}
                     </span>
@@ -142,41 +171,48 @@ const MediaView = () => {
             </div>
           </div>
 
-          <div className="glass rounded-lg p-4 h-fit lg:sticky lg:top-4">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5" />
-                <h2 className="text-xl font-bold">Comments</h2>
-              </div>
+          <div className="glass-panel p-6 h-fit lg:sticky lg:top-4 space-y-6">
+            <div className="flex items-center gap-2 mb-6">
+              <MessageCircle className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold gradient-text">Comments</h2>
+            </div>
 
-              <div className="flex gap-2">
-                <Textarea
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  placeholder="Add a comment..."
-                  className="flex-1 min-h-[80px]"
-                />
-                <Button onClick={handleCommentSubmit} size="icon" className="shrink-0 self-end">
-                  <Send className="w-5 h-5" />
-                </Button>
-              </div>
+            <div className="flex gap-3">
+              <Textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Share your thoughts..."
+                className="flex-1 min-h-[80px] bg-secondary/5 border-primary/20 
+                         focus:border-primary/40 transition-colors resize-none"
+              />
+              <Button 
+                onClick={handleCommentSubmit} 
+                size="icon" 
+                className="shrink-0 self-end hover:bg-primary/20"
+              >
+                <Send className="w-5 h-5" />
+              </Button>
+            </div>
 
-              <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
-                {comments.map((comment) => (
-                  <div key={comment.id} className="flex gap-3 animate-fade-in">
-                    <Avatar className="shrink-0">
-                      <AvatarImage src={comment.avatar} />
-                    </Avatar>
-                    <div className="flex-1 space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">{comment.user}</span>
-                        <span className="text-sm text-gray-400">{comment.timestamp}</span>
-                      </div>
-                      <p className="text-gray-200">{comment.content}</p>
+            <div className="space-y-6 max-h-[600px] overflow-y-auto custom-scrollbar">
+              {comments.map((comment, index) => (
+                <div 
+                  key={comment.id} 
+                  className="flex gap-3 animate-fade-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <Avatar className="shrink-0 ring-1 ring-primary/20">
+                    <AvatarImage src={comment.avatar} />
+                  </Avatar>
+                  <div className="flex-1 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{comment.user}</span>
+                      <span className="text-xs text-gray-400">{comment.timestamp}</span>
                     </div>
+                    <p className="text-gray-200 text-sm">{comment.content}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

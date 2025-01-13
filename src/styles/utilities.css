@@ -3,11 +3,19 @@
     scrollbar-width: thin;
   }
   
-  .scrollbar-thumb-primary::-webkit-scrollbar-thumb {
-    @apply bg-primary;
+  .scrollbar-thumb-rounded-full::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
   }
   
-  .scrollbar-track-secondary::-webkit-scrollbar-track {
-    @apply bg-secondary;
+  .scrollbar-track-secondary\/5::-webkit-scrollbar-track {
+    background-color: rgba(26, 31, 44, 0.05);
+  }
+  
+  .scrollbar-thumb-primary\/20::-webkit-scrollbar-thumb {
+    background-color: rgba(139, 92, 246, 0.2);
+  }
+  
+  .scrollbar-thumb-primary\/30::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(139, 92, 246, 0.3);
   }
 }

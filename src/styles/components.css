@@ -33,6 +33,11 @@
     @apply bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent;
   }
 
+  .custom-scrollbar {
+    @apply scrollbar-thin scrollbar-track-secondary/5 scrollbar-thumb-primary/20
+           hover:scrollbar-thumb-primary/30 scrollbar-thumb-rounded-full;
+  }
+
   .header-nav {
     @apply fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/5;
   }

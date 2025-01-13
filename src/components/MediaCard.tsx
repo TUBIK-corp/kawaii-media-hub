@@ -34,7 +34,7 @@ export const MediaCard = ({ id, imageUrl, title, likes: initialLikes, comments, 
 
   return (
     <div className="media-card group">
-      <Link to={`/media/${id}`} className="block relative aspect-[3/4]">
+      <Link to={`/media/${id}`} className="block relative aspect-square">
         <img 
           src={imageUrl} 
           alt={title} 
@@ -43,24 +43,24 @@ export const MediaCard = ({ id, imageUrl, title, likes: initialLikes, comments, 
           onLoad={() => setImageLoaded(true)}
         />
         <div className="media-card-content">
-          <h3 className="text-xl font-semibold text-white line-clamp-2">{title}</h3>
-          <div className="media-stats">
-            <button onClick={handleLike} className="media-stat">
-              <Heart className={`w-5 h-5 ${isLiked ? 'fill-primary text-primary' : ''}`} />
-              <span>{likes}</span>
-            </button>
-            <div className="media-stat">
-              <MessageCircle className="w-5 h-5" />
-              <span>{comments}</span>
+          <div className="flex justify-between items-end">
+            <div className="space-y-1">
+              <div className="flex gap-2">
+                {genres.slice(0, isMobile ? 1 : 2).map((genre) => (
+                  <span key={genre} className="genre-chip">{genre}</span>
+                ))}
+              </div>
+              <h3 className="text-sm font-medium text-white/90">{title}</h3>
             </div>
-            <button onClick={handleShare} className="media-stat ml-auto">
-              <Share2 className="w-5 h-5" />
-            </button>
-          </div>
-          <div className="flex gap-2 mt-4">
-            {genres.slice(0, isMobile ? 1 : 2).map((genre) => (
-              <span key={genre} className="genre-chip">{genre}</span>
-            ))}
+            <div className="flex items-center gap-3">
+              <button onClick={handleLike} className="media-stat">
+                <Heart className={`w-4 h-4 ${isLiked ? 'fill-primary text-primary' : ''}`} />
+                <span className="text-[10px]">{likes}</span>
+              </button>
+              <button onClick={handleShare} className="media-stat">
+                <Share2 className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       </Link>

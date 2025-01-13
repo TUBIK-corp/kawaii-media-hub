@@ -9,7 +9,7 @@
     --border: 217 33% 17%;
     --input: 217 33% 17%;
     --ring: 224 71.4% 4.1%;
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 
   * {
@@ -19,8 +19,12 @@
   body {
     @apply bg-[#01040a] text-foreground min-h-screen w-full m-0 p-0;
     background-image: 
-      radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
+      radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.03) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.03) 0px, transparent 50%),
+      linear-gradient(rgba(1, 4, 10, 0.8) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(1, 4, 10, 0.8) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+    background-position: 0 0, 0 0, -0.5px -0.5px, -0.5px -0.5px;
     background-attachment: fixed;
   }
 

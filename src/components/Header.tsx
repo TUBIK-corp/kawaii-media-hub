@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { Menu, Wallet } from "lucide-react";
+import { Menu, User, Wallet } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export const Header = () => {
   return (
@@ -24,6 +25,13 @@ export const Header = () => {
             </Link>
             <Link to="/about" className="text-sm text-gray-400 hover:text-white transition-colors">
               About
+            </Link>
+            <Link to="/profile/cyberninja" className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
+              <Avatar className="w-8 h-8 border border-primary/20">
+                <AvatarImage src="https://avatars.mds.yandex.net/i?id=4270b6a4bd492de86b93e52ff57ee426_l-4335903-images-thumbs&n=33&w=1728&h=1080" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <span>CyberNinja</span>
             </Link>
             <Button className="bg-purple-600 hover:bg-purple-700 gap-2">
               <Wallet className="w-4 h-4" />
@@ -48,6 +56,13 @@ export const Header = () => {
                 </Link>
                 <Link to="/about" className="flex items-center gap-2 p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
                   About
+                </Link>
+                <Link to="/profile/cyberninja" className="flex items-center gap-2 p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+                  <Avatar className="w-8 h-8 border border-primary/20">
+                    <AvatarImage src="https://avatars.mds.yandex.net/i?id=4270b6a4bd492de86b93e52ff57ee426_l-4335903-images-thumbs&n=33&w=1728&h=1080" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <span>Profile</span>
                 </Link>
                 <Button className="bg-purple-600 hover:bg-purple-700 gap-2 mt-4">
                   <Wallet className="w-4 h-4" />

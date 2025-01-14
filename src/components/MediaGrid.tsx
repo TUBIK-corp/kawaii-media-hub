@@ -1,16 +1,8 @@
 import { MediaCard } from "./MediaCard";
-
-interface MediaItem {
-  id: string;
-  imageUrl: string;
-  title: string;
-  likes: number;
-  comments: number;
-  genres: string[];
-}
+import type { MediaPost } from "@/data/database";
 
 interface MediaGridProps {
-  items: MediaItem[];
+  items: MediaPost[];
 }
 
 export const MediaGrid = ({ items }: MediaGridProps) => {

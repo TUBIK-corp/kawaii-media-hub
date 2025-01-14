@@ -16,7 +16,8 @@ export const SAMPLE_MEDIA = [
     title: "Kawaii Dreams",
     likes: 342,
     comments: 56,
-    genres: ["Art", "Fantasy"]
+    genres: ["Art", "Fantasy"],
+    authorId: "cyberninja"
   },
   {
     id: "2",
@@ -24,7 +25,8 @@ export const SAMPLE_MEDIA = [
     title: "Magical Forest",
     likes: 567,
     comments: 89,
-    genres: ["Fantasy", "Art"]
+    genres: ["Fantasy", "Art"],
+    authorId: "nightartist"
   },
   {
     id: "3",
@@ -32,7 +34,8 @@ export const SAMPLE_MEDIA = [
     title: "Urban Adventures",
     likes: 234,
     comments: 45,
-    genres: ["Action", "Comedy"]
+    genres: ["Action", "Comedy"],
+    authorId: "nightartist"
   },
   {
     id: "4",
@@ -40,7 +43,8 @@ export const SAMPLE_MEDIA = [
     title: "Sunset Memories",
     likes: 789,
     comments: 123,
-    genres: ["Slice of Life", "Romance"]
+    genres: ["Slice of Life", "Romance"],
+    authorId: "cyberninja"
   },
   {
     id: "5",
@@ -48,7 +52,8 @@ export const SAMPLE_MEDIA = [
     title: "Mystic Eyes",
     likes: 456,
     comments: 78,
-    genres: ["Mystery", "Drama"]
+    genres: ["Mystery", "Drama"],
+    authorId: "nightartist"
   },
   {
     id: "6",
@@ -56,7 +61,8 @@ export const SAMPLE_MEDIA = [
     title: "Neon City Lights",
     likes: 678,
     comments: 91,
-    genres: ["Fantasy", "Action"]
+    genres: ["Fantasy", "Action"],
+    authorId: "cyberninja"
   }
 ];
 

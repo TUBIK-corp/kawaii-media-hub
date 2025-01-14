@@ -8,7 +8,6 @@ import Recommendations from "./pages/Recommendations";
 import About from "./pages/About";
 import MediaView from "./pages/MediaView";
 import Profile from "./pages/Profile";
-import LikedMedia from "./pages/LikedMedia";
 
 const queryClient = new QueryClient();
 
@@ -23,8 +22,7 @@ const App = () => (
           <Route path="/recommendations" element={<Recommendations />} />
           <Route path="/about" element={<About />} />
           <Route path="/media/:id" element={<MediaView />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/liked" element={<LikedMedia />} />
+          <Route path="/profile/:username" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

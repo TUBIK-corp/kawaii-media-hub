@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Heart, MessageCircle, Share2, Send, ArrowLeft, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,6 +26,7 @@ const SAMPLE_COMMENTS = [
 
 const MediaView = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(false);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState(SAMPLE_COMMENTS);
@@ -84,6 +85,10 @@ const MediaView = () => {
     toast.success(isLiked ? "Removed from favorites" : "Added to favorites", {
       style: { background: '#1a1f2c', border: '1px solid rgba(255,255,255,0.1)' }
     });
+  };
+
+  const handleProfileClick = () => {
+    navigate('/profile/cyberninja');
   };
 
   return (
@@ -145,14 +150,17 @@ const MediaView = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-4">
+                <div 
+                  className="flex items-center gap-4 cursor-pointer hover:bg-white/5 p-3 rounded-lg transition-colors"
+                  onClick={handleProfileClick}
+                >
                   <Avatar className="ring-2 ring-primary/20 ring-offset-2 ring-offset-background 
                                    hover:ring-primary/40 transition-colors">
-                    <AvatarImage src="https://cdn.pixabay.com/photo/2022/12/03/15/00/anime-7632903_1280.jpg" />
+                    <AvatarImage src="https://avatars.mds.yandex.net/i?id=4270b6a4bd492de86b93e52ff57ee426_l-4335903-images-thumbs&n=33&w=1728&h=1080" />
                   </Avatar>
                   <div>
-                    <h3 className="font-medium text-white/90">Content Creator</h3>
-                    <p className="text-sm text-gray-400">Digital Artist</p>
+                    <h3 className="font-medium text-white/90">CyberNinja</h3>
+                    <p className="text-sm text-gray-400">Digital Artist & NFT Creator</p>
                   </div>
                 </div>
 
